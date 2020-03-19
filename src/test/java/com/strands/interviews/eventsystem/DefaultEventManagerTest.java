@@ -121,4 +121,42 @@ public class DefaultEventManagerTest
         {
         }
     }
+
+    /**
+     * Task 2: Listen everything, registering one event, SimpleEvent
+     */
+    @Test
+    public void testRegisterListenerWithoutAnyExplicitClassAndPublishOneSimpleEvent()
+    {
+        EventListenerMock eventListenerMock = new EventListenerMock(new Class[]{});
+        eventManager.registerListener("theGreatListener", eventListenerMock);
+        eventManager.publishEvent(new SimpleEvent(this));
+        assertTrue(eventListenerMock.isCalled());
+    }
+
+    /**
+     * Task 2: Listen everything, registering one event, SubEvent
+     */
+    @Test
+    public void testRegisterListenerWithoutAnyExplicitClassAndPublishOneSubEvent()
+    {
+        EventListenerMock eventListenerMock = new EventListenerMock(new Class[]{});
+        eventManager.registerListener("theGreatListener", eventListenerMock);
+        eventManager.publishEvent(new SubEvent(this));
+        assertTrue(eventListenerMock.isCalled());
+    }
+
+    /**
+     * Task 2: Listen everything, registering multiple Events
+     */
+    @Test
+    public void testRegisterListenerWithoutAnyExplicitClassAndPublishMultipleEvents()
+    {
+        EventListenerMock eventListenerMock = new EventListenerMock(new Class[]{});
+        eventManager.registerListener("theGreatListener", eventListenerMock);
+        eventManager.publishEvent(new SubEvent(this));
+        eventManager.publishEvent(new SimpleEvent(this));
+        assertTrue(eventListenerMock.isCalled());
+    }
+
 }
