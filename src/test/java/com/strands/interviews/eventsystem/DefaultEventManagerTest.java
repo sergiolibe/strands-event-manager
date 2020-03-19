@@ -35,6 +35,18 @@ public class DefaultEventManagerTest
         assertFalse(eventListenerMock.isCalled());
     }
 
+    /**
+     * Task 1 : check that childEvents doesn't trigger parent listeners
+     */
+    @Test
+    public void testParentEventClassListenerWithChildEventClass()
+    {
+        EventListenerMock eventListenerMock = new EventListenerMock(new Class[]{SimpleEvent.class});
+        eventManager.registerListener("some.key", eventListenerMock);
+        eventManager.publishEvent(new SubEvent(this));
+        assertFalse(eventListenerMock.isCalled());
+    }
+
     @Test
     public void testUnregisterListener()
     {
